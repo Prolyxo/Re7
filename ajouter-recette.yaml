@@ -1,0 +1,82 @@
+id: ajouter-recette
+type: PageHeaderMenu
+
+requests:
+  - id: ajouter_nouvelle_recette
+    type:  MongoDBInsertOne
+    connectionId: Re7_DB
+    properties:
+      doc:
+        plat:
+          _state: plat
+        ingredients:
+          _state: ingredients
+        recette:
+          _state: recette
+        pj1:
+          _state: pj1
+        user_id:
+          _user: id
+        timestamp:
+          _date: now
+
+properties:
+  title: Ajouter une Recette # The title in the browser tab.
+layout:
+  contentJustify: center # Center the contents of the page
+blocks:
+  - id: content_card
+    type: Card
+    layout:
+      size: 800 # Set the size of the card so it does not fill the full screen
+      contentGutter: 16 # Make a 16px gap between all blocks in this card
+    blocks:
+      - id: page_heading
+        type: Title
+        properties:
+          content: Ajoutez une recette # Change the title on the page.
+          level: 3 # Make the title a little smaller (an html `<h3>`).
+      - id: plat
+        type: TextInput
+        required: true
+        properties:
+          title: Nom du plat
+      - id: ingrédients
+        type: TextArea
+        properties:
+          title: Ingredients
+      - id: recette
+        type: TextArea
+        properties:
+          title: Recette
+      - id: pj1
+        type: S3UploadButton
+      - id: reset_button
+        type: Button
+        layout:
+          span: 12 # Set the size of the button (span 12 of 24 columns)
+        properties:
+          title: Reset
+          block: true # Make the button fill all the space available to it
+          type: default # Make the button a plain button
+          icon: ClearOutlined
+        events:
+          onClick:
+            - id: reset
+              type: Reset
+      - id: submit_button
+        type: Button
+        layout:
+          span: 12
+        properties:
+          title: Submit
+          block: true
+          type: primary # Make the button a primary button with color
+          icon: SaveOutlined
+        events:
+          onClick:
+            - id: ajouter_nouvelle_recette # Make a request to Google Sheets
+              type: Request
+              params: ajouter_nouvelle_recette
+            - id: reset # Reset the form once data has been submitted
+              type: Reset

@@ -1,0 +1,59 @@
+lowdefy: 3.23.2
+name: Lowdefy starter
+
+connections:
+  - id: Re7_DB
+    type: MongoDBCollection
+    properties:
+      databaseUri:
+        _secret: MONGODB_URI
+      collection: Re7.Recettes
+      write: true
+
+menus:
+  - id: default
+    links:
+      - id: ajouter-recette
+        type: MenuLink
+        properties:
+          icon: AlertOutlined
+          title: Ajouter Recette
+        pageId: ajouter-recette
+      - id: Recettes
+        type: MenuLink
+        properties:
+          icon: HomeOutlined
+          title: Recettes
+        pageId: recettes
+
+pages:
+  - _ref: ajouter-recette.yaml
+  - id: recettes
+    type: PageHeaderMenu
+    properties:
+      title: Recettes
+    areas:
+      content:
+        justify: center
+        blocks:
+          - id: content_card
+            type: Card
+            style:
+              maxWidth: 800
+            blocks:
+              - id: content
+                type: Result
+                properties:
+                  title: Bienvenue
+                  subTitle: Miam...
+                  icon:
+                    name: HeartTwoTone
+                    color: '#f00'
+      footer:
+        blocks:
+          - id: footer
+            type: Paragraph
+            properties:
+              type: secondary
+              content: |
+                Made by a Prolyxo 🤖
