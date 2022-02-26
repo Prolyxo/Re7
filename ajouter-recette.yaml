@@ -41,7 +41,7 @@ blocks:
         required: true
         properties:
           title: Nom du plat
-      - id: ingrédients
+      - id: ingredients
         type: TextArea
         properties:
           title: Ingredients
