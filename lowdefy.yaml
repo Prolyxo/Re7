@@ -7,7 +7,7 @@ connections:
     properties:
       databaseUri:
         _secret: MONGODB_URI
-      collection: Recettes
+      collection: Re7
       write: true
 
 menus:
