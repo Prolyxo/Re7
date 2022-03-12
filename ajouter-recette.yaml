@@ -19,6 +19,18 @@ requests:
           _user: id
         timestamp:
           _date: now
+  - id: my_post_policy
+    type: AwsS3PresignedPostPolicy
+    connectionId: my_bucket
+    properties:
+      key:
+        _nunjucks:
+          template: uploads/{{filename}}-{{uid}}
+          on:
+            filename:
+              _args: filename
+            uid:
+              _args: filename
 
 properties:
   title: Ajouter une Recette # The title in the browser tab.
@@ -51,6 +63,8 @@ blocks:
           title: Recette
       - id: pj1
         type: S3UploadButton
+        properties:
+          s3PostPolicyRequestId: my_post_policy
       - id: reset_button
         type: Button
         layout:
